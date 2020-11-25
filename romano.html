@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<title>Conversor Decimal para Romano</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="shortcut icon" href="https://www.mundiale.com.br/wp-content/uploads/2018/09/cropped-favicon-270x270.png" type="image/x-icon" />
+
+		<style type="text/css">
+			*:focus {
+				outline: none;
+			}
+			input::-webkit-inner-spin-button { 
+				-webkit-appearance: none;
+
+			}
+			input { 
+				-moz-appearance: textfield;
+				appearance: textfield;
+			}
+			body {
+				width: 500px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			span {
+				margin: 0;
+				padding: 0;
+				display: inline-block;
+			}
+			hr {
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+
+			.title {
+				display: flex;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			.margin-auto {
+				margin-right: auto;
+				margin-left: auto;
+			}
+			.flex {
+				display: flex;
+			}
+			.button {
+				display: inline-block;
+				vertical-align: middle;
+				margin: 0 0 1rem 0;
+				font-family: inherit;
+				padding: .85em 1em;
+				-webkit-appearance: none;
+				border: 1px solid transparent;
+				border-radius: 0;
+				transition: background-color .25s ease-out,color .25s ease-out;
+				font-size: .9rem;
+				line-height: 1;
+				text-align: center;
+				cursor: pointer;
+				color: #fefefe;
+				background-color: #00a3d3;
+				font-size: 1rem;
+				font-weight: 600;
+				padding: .8125rem .5rem .8125rem .5rem;
+				margin-top: 5px;
+				margin-left: auto;
+				margin-right: auto;
+				width: 100px;
+				border-radius: 10px;
+			}
+			.button:hover {
+				background-color: #8ac543;
+			}
+			.form {
+				margin-top: 90px;
+				margin-left: auto;
+				margin-right: auto;
+				width: 450px;
+				background: #fff;
+				box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.6);
+				border-radius: 10px;
+				padding: 30px 30px;
+			}
+			.width-60percent {
+				width: 60%;
+			}
+
+			#decimal {
+				padding-left: 5px;
+				border-radius: 15px;
+			}
+
+			#labelRom {
+				margin-right: 3px;
+			}
+			#milhar {
+				border-top: 1px solid black;
+			}
+			#labelRom {
+				margin-left: 3%;
+				margin-right: 7%;
+			}
+
+			/*TOPBAR*/
+			.topbar {
+				width: 510px;
+				background-color: #435363;
+				border-radius: 15px;
+				margin: 20px auto;
+				box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.6);
+				display: flex;
+				height: 35px;
+			}
+
+			.link-topbar {
+				margin: 7px auto;
+				padding: 2px;
+			}
+
+			.link-topbar a {
+				margin-right: auto;
+				margin-left: auto;
+				color: #e6e6e6;
+				text-decoration: none;
+			}
+
+			.link-topbar:hover a {
+				color: #8ac543;
+			}
+			/*TOPBAR*/
+		</style>
+	</head>
+	<body>
+        <div class="topbar">
+            <div class="link-topbar">
+                <a href="./valid-string.html">Validador de Strings</a>
+            </div>
+
+            <div class="link-topbar">
+                <a href="./pilha.html">Ordenar Pilha</a>
+            </div>
+
+            <div class="link-topbar">
+                <a href="./romano.html">Conversor para Romano</a>
+            </div>
+        </div>
+
+		<div class="form">
+			<div class="row title">
+				<h3 class="title">Conversor Romano</h3>
+			</div>
+
+			<hr />
+
+			<div class="row">
+				<div class="flex">
+					<label class="margin-auto">Número Decimal:</label>
+					<input input class="margin-auto width-60percent" type="number" placeholder="Informe um número decimal" id="decimal" autofocus maxlength="4">
+				</div>
+
+				<hr />
+				<div class="flex">
+					<label class="margin-auto" id="labelRom">Número Romano:</label>
+					<span class="" id="milhar"></span>
+					<span class="" id="restNumber"></span>
+				</div>
+
+				<hr />
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			const romanos = {
+				//Unidade
+				0 : [
+					'',		//0
+					'I',		//1
+					'II',		//2
+					'III',		//3
+					'IV',		//4
+					'V',		//5
+					'VI',		//6
+					'VII',		//7
+					'VIII',	//8
+					'IX',		//9
+				],
+				//Dezena
+				1 : [
+					'',
+					'X',		//10
+					'XX',   	//20
+					'XXX',		//30
+					'XL',		//40
+					'L',		//50
+					'LX',		//60
+					'LXX',		//70
+					'LXXX',		//80
+					'XC',		//90
+				],
+				2 : [
+					'',
+					'C',		//100
+					'CC',		//200
+					'CCC',		//300
+					'CD',		//400
+					'D',		//500
+					'DC',		//600
+					'DCC',		//700
+					'DCCC',		//800
+					'CM',		//900
+				],
+				3 : [
+					'',
+					'M',		//1000
+					'MM',		//2000
+					'MMM',		//3000
+					'IV',		//4000
+					'V',		//5000
+					'VI',		//6000
+					'VII',		//7000
+					'VIII',		//8000
+					'IX',		//9000
+					'X',		//10000
+				],
+			};
+
+			//Obs número maximo é 19999
+
+			function decimalParaRomano(input){
+
+				input = input.replace(/[^0-9]/, "");
+				if(input == '') return'';
+
+				let number = parseInt(input);
+
+				if(number > 9999){
+					return "número maximo '9999'";
+				}
+
+				//Calcula quantidade de casas decimais para saber se o numero é uma dezena, centeza, ou milhar
+				let qtdCasaDecimal = Number(input).toString();
+				let qtdLength = qtdCasaDecimal.length;
+
+				let udc = qtdLength - 1;
+
+				let novaOrdem = '';
+				for(let i = udc; i >= 0; i--){
+					console.log(novaOrdem, qtdCasaDecimal, udc);
+					novaOrdem = novaOrdem + qtdCasaDecimal.charAt(i);
+				}
+
+				let finalCast = '';
+				let romanoMilhar = '';
+				let milhar = parseInt(novaOrdem.charAt(udc));
+
+				if( udc > 2 && milhar >= 4) {
+					romanoMilhar = romanoMilhar + romanos[3][milhar];
+					document.getElementById("milhar").innerHTML = romanoMilhar;
+
+					for(let i = (udc - 1); i >= 0 ;i--){
+						let auxVar = parseInt(novaOrdem.charAt(i));
+						finalCast = finalCast + romanos[i][auxVar];
+						console.log('dentro do if');
+					}
+					return finalCast;
+				}
+				for(let i = udc; i >= 0 ;i--){
+					let auxVar = parseInt(novaOrdem.charAt(i));
+					finalCast = finalCast + romanos[i][auxVar];
+					console.log('fora do if');
+				}
+				romanoMilhar = '';
+				document.getElementById("milhar").innerHTML = '';
+				return finalCast;
+			}
+
+			document.getElementById("decimal").addEventListener('keyup', function() {
+				let romanNumber = decimalParaRomano(this.value);
+				document.getElementById("restNumber").innerHTML = romanNumber;
+
+				let numberCheck = this.value.replace(/[^0-9]/, "");
+				if(numberCheck == '') return false;
+			});
+		</script>
+	</body>
+</html>

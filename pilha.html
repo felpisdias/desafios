@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Organizador de Pilhas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="shortcut icon" href="https://www.mundiale.com.br/wp-content/uploads/2018/09/cropped-favicon-270x270.png" type="image/x-icon" />
+
+        <style type="text/css">
+            *:focus {
+                outline: none;
+            }
+            input::-webkit-inner-spin-button { 
+                -webkit-appearance: none;
+
+            }
+            input { 
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+            body {
+                width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            span {
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+            }
+            hr {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .title {
+                display: flex;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            .margin-auto {
+                margin-right: auto;
+                margin-left: auto;
+            }
+            .flex {
+                display: flex;
+            }
+            .button {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 0 1rem 0;
+                font-family: inherit;
+                padding: .85em 1em;
+                -webkit-appearance: none;
+                border: 1px solid transparent;
+                border-radius: 0;
+                transition: background-color .25s ease-out,color .25s ease-out;
+                font-size: .9rem;
+                line-height: 1;
+                text-align: center;
+                cursor: pointer;
+                color: #fefefe;
+                background-color: #00a3d3;
+                font-size: 1rem;
+                font-weight: 600;
+                padding: .8125rem .5rem .8125rem .5rem;
+                margin-top: 5px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100px;
+                border-radius: 10px;
+            }
+            .button:hover {
+                background-color: #8ac543;
+            }
+            .form {
+                margin-top: 90px;;
+                margin-left: auto;
+                margin-right: auto;
+                width: 450px;
+                background: #fff;
+                box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.6);
+                border-radius: 10px;
+                padding: 30px 30px;
+            }
+            .width-60percent {
+                width: 60%;
+            }
+
+            #pilha {
+                padding-left: 5px;
+                border-radius: 15px;
+            }
+
+            /*TOPBAR*/
+            .topbar {
+                width: 510px;
+                background-color: #435363;
+                border-radius: 15px;
+                margin: 20px auto;
+                box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.6);
+                display: flex;
+                height: 35px;
+            }
+
+            .link-topbar {
+                margin: 7px auto;
+                padding: 2px;
+            }
+
+            .link-topbar a {
+                margin-right: auto;
+                margin-left: auto;
+                color: #e6e6e6;
+                text-decoration: none;
+            }
+
+            .link-topbar:hover a {
+                color: #8ac543;
+            }
+            /*TOPBAR*/
+        </style>
+        </head>
+    <body>
+        <div class="topbar">
+            <div class="link-topbar">
+                <a href="./valid-string.html">Validador de Strings</a>
+            </div>
+
+            <div class="link-topbar">
+                <a href="./pilha.html">Ordenar Pilha</a>
+            </div>
+
+            <div class="link-topbar">
+                <a href="./romano.html">Conversor para Romano</a>
+            </div>
+        </div>
+
+
+        <div class="form">
+            <div class="row title">
+                <h3 class="title">Organizador de Pilhas</h3>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="flex">
+                    <label class="margin-auto"> Organizar Pilha: </label>
+                    <input class="margin-auto width-60percent" type="text" placeholder="Informe uma pilha, separar por ', '" id="pilha" autofocus>
+                </div>
+
+                <hr />
+                <div class="flex">
+                    <label class="margin-auto">Pilha Recebida: </label>
+                    <span class="margin-auto width-60percent" id="pilhaAtual">
+                    </span>
+                </div>
+                <hr />
+
+                <div class="flex">
+                    <label class="margin-auto">Pilha Ordenada: </label>
+                    <span class="margin-auto width-60percent" id="pilhaOrdenada">
+                    </span>
+                </div>
+                <hr />
+
+                <div class="flex">
+                    <button class="button" type="button" onclick="parseStringAsArray(document.getElementById('pilha').value)"> Validar </button>
+                </div>
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function pilhaSort(arrayPilha) {
+
+                let pilha = [];
+                let pilhaOrd = [];
+
+                for (let i = 0; i < arrayPilha.length; i++) {
+                    pilha.push(parseInt(arrayPilha[i]));
+                }
+        
+                document.getElementById("pilha").value = '';
+
+                document.getElementById("pilhaAtual").innerHTML = pilha.map(v => v = ' ' + v);
+
+                pilhaOrd = pilha.sort(function(a,b) {
+                    return a - b
+                });
+
+                document.getElementById("pilhaOrdenada").innerHTML = pilhaOrd.map(v => v = ' ' + v);
+            }
+
+            function parseStringAsArray(arrayAsString) {
+                const string = arrayAsString;
+
+                arrayPilha = string.split(',').map(v => v.trim());
+
+                pilhaSort(arrayPilha);
+            };
+
+        </script>
+
+    </body>
+</html>
